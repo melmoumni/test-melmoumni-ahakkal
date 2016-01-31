@@ -1,0 +1,65 @@
+#include <stdio.h>
+
+#include "CuTest.h"
+
+// Upcase word in place
+// returns number of words
+int upcase_word(char *str);
+int upcase_word_2(char *str);
+
+// returns month as string
+const char *months(int month);
+// returns month as number from string
+int month_nth(char *month);
+
+enum Triangle {DEGENERE, SCALENE_AIGU, SCALENE_OBTUS, ISOCELE_AIGU, ISOCELE_OBTUS, EQUILATERAL};
+// Returns trinagle type
+enum Triangle triangle(float a, float b, float c);
+
+
+// Assertion macros
+// tc: test case
+// ms: message
+// cond, ac: actual value
+// ex: expected values
+// dl: delta
+//
+// #define CuFail(tc, ms)
+// #define CuAssert(tc, ms, cond)
+// #define CuAssertTrue(tc, cond)
+//
+// #define CuAssertStrEquals(tc,ex,ac)
+// #define CuAssertStrEquals_Msg(tc,ms,ex,ac)
+// #define CuAssertIntEquals(tc,ex,ac)
+// #define CuAssertIntEquals_Msg(tc,ms,ex,ac)
+// #define CuAssertDblEquals(tc,ex,ac,dl)
+// #define CuAssertDblEquals_Msg(tc,ms,ex,ac,dl)
+// #define CuAssertPtrEquals(tc,ex,ac)
+// #define CuAssertPtrEquals_Msg(tc,ms,ex,ac)
+//
+// #define CuAssertPtrNotNull(tc,p)
+// #define CuAssertPtrNotNullMsg(tc,msg,p)
+
+char *const2str(const char *s) {
+	return strcpy(malloc(strlen(s)), s);
+}
+
+void test1(CuTest *test) {
+	CuAssertIntEquals(test, EQUILATERAL, triangle(6, 6, 6));
+	CuAssertIntEquals(test, ISOCELE_AIGU, triangle(6, 1, 6));
+	CuAssertIntEquals(test, ISOCELE_OBTUS, triangle(7, 4, 4));
+}
+
+int main(int argc, char** argv) {
+		CuString *output = CuStringNew();
+		CuSuite* suite = CuSuiteNew();
+
+		SUITE_ADD_TEST(suite, test1);
+
+		CuSuiteRun(suite);
+		// CuSuiteSummary(suite, output);
+		CuSuiteDetails(suite, output);
+		printf("%s\n", output->buffer);
+
+		return suite->failCount;
+}
