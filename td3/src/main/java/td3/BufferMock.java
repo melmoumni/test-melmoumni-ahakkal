@@ -28,7 +28,7 @@ public class BufferMock {
 
 	    public int maxPosition() {
 	    	trace += "maxPosition:";
-	    	return 0;
+	    	return 1;
 	    }
 
 	    private int restrictValue(int v) {
